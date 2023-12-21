@@ -27,11 +27,13 @@ async function run() {
     // await client.connect();
 
     // all collection in db
-    const taskCollection = client.db('taskManagement').collection('allTask')
-    
+    const taskCollection = client.db('taskManagement').collection('allTask');
 
-
-
+    app.post('/addPost', async (req, res) => {
+      const query = req.body;
+      const result = await taskCollection.insertOne(query);
+      res.send(result);
+    });
 
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 });
