@@ -29,9 +29,14 @@ async function run() {
     // all collection in db
     const taskCollection = client.db('taskManagement').collection('allTask');
 
-    app.post('/addPost', async (req, res) => {
+    app.post('/addTask', async (req, res) => {
       const query = req.body;
       const result = await taskCollection.insertOne(query);
+      res.send(result);
+    });
+
+    app.get('/allTask', async (req, res) => {
+      const result = await taskCollection.find().toArray();
       res.send(result);
     });
 
